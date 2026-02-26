@@ -1,12 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
+import VOICES from 'src/static/static.voices';
 
 @Injectable()
-export class IntelUtils {
+export class UtilsService {
   constructor(private config: ConfigService) {}
-  private geminiIndex = 0;
-
-  get geminiApiKey() {
+  private index = 0;
+  get getGeminiApiKey() {
     const keys = [
       this.config.get<string>('API_KEY_1'),
       this.config.get<string>('API_KEY_2'),
@@ -69,8 +69,8 @@ export class IntelUtils {
       this.config.get<string>('API_KEY_59'),
       this.config.get<string>('API_KEY_60'),
     ];
-    const key = keys[this.geminiIndex];
-    this.geminiIndex = (this.geminiIndex + 1) % keys.length;
+    const key = keys[this.index];
+    this.index = (this.index + 1) % keys.length;
     return key;
   }
 
@@ -80,40 +80,3 @@ export class IntelUtils {
     return voices[randomIndex];
   }
 }
-
-export const VOICES = {
-  male: [
-    'Puck',
-    'Charon',
-    'Fenrir',
-    'Orus',
-    'Enceladus',
-    'Iapetus',
-    'Umbriel',
-    'Algieba',
-    'Algenib',
-    'Rasalgethi',
-    'Alnilam',
-    'Schedar',
-    'Pulcherrima',
-    'Achird',
-    'Zubenelgenubi',
-    'Sadachbia',
-    'Sadaltager',
-  ],
-  female: [
-    'Zephyr',
-    'Kore',
-    'Leda',
-    'Aoede',
-    'Callirrhoe',
-    'Autonoe',
-    'Despina',
-    'Erinome',
-    'Laomedeia',
-    'Achernar',
-    'Gacrux',
-    'Vindemiatrix',
-    'Sulafat',
-  ],
-};

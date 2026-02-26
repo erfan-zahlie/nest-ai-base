@@ -4,7 +4,6 @@ import pThrottle from 'p-throttle';
 
 @Injectable()
 export class CommonService {
-
   handleRetry(fn, number: number) {
     return pRetry(fn, {
       minTimeout: 1000,
@@ -31,5 +30,8 @@ export class CommonService {
     });
     return throttle(fn);
   }
-  
+
+  random(ceil: number, floor = 0) {
+    return Math.floor(Math.random() * (ceil - floor + 1)) + floor;
+  }
 }
